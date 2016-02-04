@@ -1,7 +1,7 @@
 # VexC16
 The code and resources for Spring-Ford High School's Team C Vex Robot
 
-Competition Code (Latest Version)
+Competition Code (Built on Latest Version)
 -----------------------------------------------
 
   1) Runs the autonomous task for the number of seconds defined in the pragma
