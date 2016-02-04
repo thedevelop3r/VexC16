@@ -49,25 +49,14 @@ Controls:
     
       The goal of the current autonomous implementation is to score with a set of pre-loaded balls in the low goal.
       This is accomplished by orienting the robot towards the goal, driving to it, and dumping the pre-loaded balls.
-      The robot is oriented by making a decision on which starting square it is on using an ultra-sonic sensor (the
-      robot must be placed facing the wall or not facing the wall, depending on where it is). Orientation with respect
-      to the border wall is crucial.
       
       Orienting the Robot:
       
-        1) face the net
-        
-        2) if the robot is on the left square, turn it towards the inside of the arena
-        
-        3) if the robot is on the right squre, turn it towards the closest barrier of the arena
+        1) FACE THE NET
         
       Program Overview:
-      
-        1) check distance between wall and robot
         
-        2) use this information to find starting square
+        1) run macro to deliver balls from given position
         
-        3) run macro to deliver balls from given position
-        
-        4) wait for user control period
+        2) wait for user control period
       
