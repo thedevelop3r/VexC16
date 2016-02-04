@@ -126,7 +126,7 @@ void updateSensorValues()
 /*
 Some notes:
 	robot max speed is 12/5 ft/s (1 trial - quick test)
-	robot max rotational speed is 5/4 rotations per second (1 trial - quick test)
+	robot max rotational speed is 3/2 rotations per second (1 trial - quick test)
 */
 
 void turn(float radians)
@@ -147,13 +147,14 @@ void travelForward(float feet)
 	motor[rightWheel] = 0;
 }
 
-// Macros sequence for autonomous starting from the left square, facing goal (robot should face the wall)
+// Macro sequence for autonomous starting from the left square,
+// facing goal (robot should face the wall)
 void macroSequence1()
 {
-	turn(3 * PI / 4);
+	turn(3);
 
-	motor[rightWheel] = 127;
-	motor[leftWheel] = 127;
+	motor[rightWheel] = 80;
+	motor[leftWheel] = 80;
 	motor[arm] = 20;
 
 	updateSensorValues();
@@ -166,17 +167,18 @@ void macroSequence1()
 	motor[leftWheel] = 0;
 
 	motor[arm] = 127;
-	wait1Msec(1500);
+	wait1Msec(1100);
 	motor[arm] = 0;
 }
 
-// Macro sequence for autonomous starting from right square, facing goal (robot should face playing field)
+// Macro sequence for autonomous starting from right square,
+// facing goal (robot should face playing field)
 void macroSequence2()
 {
-	turn(PI / 4);
+	turn(.75);
 
-	motor[rightWheel] = 127;
-	motor[leftWheel] = 127;
+	motor[rightWheel] = 80;
+	motor[leftWheel] = 80;
 	motor[arm] = 20;
 
 	updateSensorValues();
@@ -189,7 +191,7 @@ void macroSequence2()
 	motor[leftWheel] = 0;
 
 	motor[arm] = 127;
-	wait1Msec(1500);
+	wait1Msec(1100);
 	motor[arm] = 0;
 }
 
