@@ -47,7 +47,11 @@ Controls:
         
     Autonomous Documentation:
     
-      The goal of the current autonomous implementation is to score with a set of pre-loaded balls in the low goal. This is accomplished by orienting the robot towards the goal, driving to it, and dumping the pre-loaded balls. The robot is oriented by making a decision on which starting square it is on using an ultra-sonic sensor (the robot must be placed facing the wall or not facing the wall, depending on where it is). Orientation with respect to the border wall is crucial.
+      The goal of the current autonomous implementation is to score with a set of pre-loaded balls in the low goal.
+      This is accomplished by orienting the robot towards the goal, driving to it, and dumping the pre-loaded balls.
+      The robot is oriented by making a decision on which starting square it is on using an ultra-sonic sensor (the
+      robot must be placed facing the wall or not facing the wall, depending on where it is). Orientation with respect
+      to the border wall is crucial.
       
       Orienting the Robot:
       
