@@ -197,8 +197,26 @@ void macroSequence2()
 
 void autonomousMission()
 {
+	motor[rightWheel] = 80;
+	motor[leftWheel] = 80;
+	motor[arm] = 20;
+
+	updateSensorValues();
+	while(distanceFrom > 5)
+	{
+		updateSensorValues();
+	}
+
+	motor[rightWheel] = 0;
+	motor[leftWheel] = 0;
+
+	motor[arm] = 127;
+	wait1Msec(1100);
+	motor[arm] = 0;
+
 	autonomous_toggle = false;
 
+	/*
 	if(macroSequence == 0)
 	{
 		// determine sequence of moves
@@ -225,6 +243,7 @@ void autonomousMission()
 		// reset macro sequence
 		macroSequence = 0;
 	}
+	*/
 }
 
 // Main
