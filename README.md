@@ -24,7 +24,9 @@ Controls:
     tank control mode (Lower Right trigger depressed)
     
       move: left wheel, Left stick Up & Down
+      
       move: right wheel, Right stick Up & Down
+      
     accelerometer control mode (Upper Right trigger depressed)
     
       turn: tilt Left and Right
