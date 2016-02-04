@@ -232,7 +232,7 @@ void autonomousMission()
 // Main
 // --------------------------------------------
 
-task pre_autonomous()
+void pre_autonomous()
 {
 }
 
