@@ -3,6 +3,7 @@
 #pragma config(Motor,  port3,            ,             tmotorServoContinuousRotation, openLoop)
 #pragma config(Motor,  port4,            ,             tmotorServoContinuousRotation, openLoop)
 #pragma platform(VEX)
+#include "Vex_Competition_Includes.c"
 #pragma competitionControl(Competition)
 #pragma autonomousDuration(20)
 #pragma userControlDuration(120)
@@ -16,7 +17,7 @@ int arm = port4;
 // config motor values
 int rightWheelValue = 0;
 int leftWheelValue = 0;
-int forwardDirection = -1;
+int forwardDirection = 1;
 
 // config global sensor values
 int distanceFrom = SensorValue[dgtl8];
@@ -107,13 +108,6 @@ void userDrive()
 	}
 }
 
-void manualOneStickSteer()
-{
-	// let user steer
-	rightWheelValue -= vexRT[Ch1];
-	leftWheelValue += vexRT[Ch1];
-}
-
 // Data Input
 // --------------------------------------------------
 
@@ -127,142 +121,58 @@ void updateSensorValues()
 // Autonomous mode
 // --------------------------------------------------
 
-/*
-Some notes:
-robot max speed is 12/5 ft/s (1 trial - quick test)
-robot max rotational speed is 5/4 rotations per second (1 trial - quick test)
-*/
-
-void turn(float radians)
-{
-	motor[leftWheel] = -127 * radians / abs(radians);
-	motor[rightWheel] = 127 * radians / abs(radians);
-	wait1Msec(1000 * 1.5 * abs(radians) / (2 * PI));
-	motor[leftWheel] = 0;
-	motor[rightWheel] = 0;
-}
-
-void travelForward(float feet)
-{
-	motor[leftWheel] = 127 * feet / abs(feet);
-	motor[rightWheel] = 127 * feet / abs(feet);
-	wait1Msec(1000 * (2.4 / abs(feet)));
-	motor[leftWheel] = 0;
-	motor[rightWheel] = 0;
-}
-
-// Macro sequence for autonomous starting from the left square,
-// facing goal (robot should face the wall)
-void macroSequence1()
-{
-	turn(3);
-
-	motor[rightWheel] = 80;
-	motor[leftWheel] = 80;
-	motor[arm] = 20;
-
-	updateSensorValues();
-	while(distanceFrom > 5)
-	{
-		updateSensorValues();
-	}
-
-	motor[rightWheel] = 0;
-	motor[leftWheel] = 0;
-
-	motor[arm] = 127;
-	wait1Msec(1100);
-	motor[arm] = 0;
-}
-
-// Macro sequence for autonomous starting from right square,
-// facing goal (robot should face playing field)
-void macroSequence2()
-{
-	turn(.75);
-
-	motor[rightWheel] = 80;
-	motor[leftWheel] = 80;
-	motor[arm] = 20;
-
-	updateSensorValues();
-	while(distanceFrom > 5)
-	{
-		updateSensorValues();
-	}
-
-	motor[rightWheel] = 0;
-	motor[leftWheel] = 0;
-
-	motor[arm] = 127;
-	wait1Msec(1100);
-	motor[arm] = 0;
-}
-
-void autonomousMission()
-{
-	motor[rightWheel] = 80;
-	motor[leftWheel] = 80;
-	motor[arm] = 20;
-
-	updateSensorValues();
-	while(distanceFrom > 5)
-	{
-		updateSensorValues();
-	}
-
-	motor[rightWheel] = 0;
-	motor[leftWheel] = 0;
-
-	motor[arm] = 127;
-	wait1Msec(1100);
-	motor[arm] = 0;
-
-	autonomous_toggle = false;
-
-	/*
-	if(macroSequence == 0)
-	{
-		// determine sequence of moves
-		if(distanceFrom < 20)
-		{
-			macroSequence = 1;
-		}
-		else
-		{
-			macroSequence = 2;
-		}
-
-		autonomous_toggle = true;
-	}
-	else if (macroSequence == 1)
-	{
-		macroSequence1();
-		// reset macro sequence
-		macroSequence = 0;
-	}
-	else
-	{
-		macroSequence2();
-		// reset macro sequence
-		macroSequence = 0;
-	}
-	*/
-}
 
 // Main
 // --------------------------------------------
 
-void pre_autonomous()
+void pre_auton()
 {
 }
 
 task autonomous()
 {
-	autonomousMission();
+
+	// go forward
+	for(int i = 0; i <= 127; i++)
+	{
+			motor[leftWheel] = i;
+			motor[rightWheel] = i;
+			wait1Msec(2);
+	}
+
+	wait1Msec(1000);
+
+	// slow down
+	for(int i = 127; i >= 0; i--)
+	{
+		motor[leftWheel] = i;
+		motor[rightWheel] = i;
+		wait1Msec(2);
+	}
+
+	wait1Msec(500);
+
+	// spin
+	for(int i = 0; i <= 127; i++)
+	{
+		motor[leftWheel] = i;
+		wait1Msec(2);
+	}
+	motor[rightWheel] = 30;
+
+	wait1Msec(10000);
+
+	// stop spin
+	for(int i = 127; i >= 0; i--)
+	{
+		motor[leftWheel] = i;
+		wait1Msec(2);
+	}
+
+	motor[rightWheel] = 0;
 }
 
-task main()
+task usercontrol()
 {
 
 	while(true)
